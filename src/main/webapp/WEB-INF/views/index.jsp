@@ -14,6 +14,24 @@
 
     <link href="${stylesCss}" rel="stylesheet">
     <link href="${gradientsCss}" rel="stylesheet">
+    
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script>
+            var ctxPath = "<%=request.getContextPath() %>";
+            $(function(){                
+                $("#postPerson, #postMessage").on("click", function(){
+                    $.ajax({
+                        url: $(this).attr("id") === "postMessage" ? ctxPath+"/service/message/post" : ctxPath+"/service/person/post",
+                        type: "POST",
+                        data: '{"firstName":"Michael", "lastName":"Jordan"}',
+                        contentType: "application/json",
+                        cache: false,
+                        dataType: "json"
+                    });
+                });                
+            });
+        </script>
+    
   </head>
   <body class="">
     <div class="wrapper">
@@ -44,6 +62,15 @@
           <a class="twitter-link" href="http://twitter.com/home/?status=I%20created%20a%20project%20with%20AWS%20CodeStar!%20%23AWS%20%23AWSCodeStar%20https%3A%2F%2Faws.amazon.com%2Fcodestar">
               <img src="${tweetSvg}" alt="Tweet"/>
           </a>
+       <div style="height: 200px;">
+		   <ul>
+		       <li><a href="<%=request.getContextPath() %>/service/message"><%=request.getContextPath() %>/service/message</a></li>
+		       <li><a href="<%=request.getContextPath() %>/service/message/ping"><%=request.getContextPath() %>/service/message/ping</a></li>
+		       <li><a href="<%=request.getContextPath() %>/service/person/get"><%=request.getContextPath() %>/service/person/get</a></li>
+	           <li><button id="postPerson">Post Person</button></li>
+	           <li><button id="postMessage">Post Message</button></li>
+		   </ul>
+       </div> 
         <div class="text">
           <h1>Congratulations!</h1>
           <h2>You just created a Java Spring web application.</h2>
